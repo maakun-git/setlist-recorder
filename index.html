@@ -59,7 +59,7 @@ button:active { background: #555; }
 <div class="fixed-top">
 <h2>セットリスト</h2>
 
-<input id="venue" placeholder="会場名（例：東京ドーム）">
+<input id="venue" placeholder="会場名">
 
 <input id="hashtags" placeholder="#アーティスト名 #ツアー名">
 
@@ -74,13 +74,30 @@ button:active { background: #555; }
 <div id="songs"></div>
 
 <script>
-const songList = [
-"曲A","曲B","曲C","曲D","曲E",
-"曲F","曲G","曲H","曲I","曲J",
-"曲K","曲L","曲M","曲N","曲O",
-"曲P","曲Q","曲R","曲S","曲T",
-"曲U","曲V","曲W","曲X","曲Y","曲Z"
-];
+let songList = [];
+
+async function loadSongs() {
+  try {
+    const response = await fetch("theEncore.json");
+
+    // HTTPエラーを明示的に検出
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    // const text = await response.text();
+    // console.log("取得した生データ:", text);
+    // songList = JSON.parse(text);
+
+    songList = await response.json();
+    createButtons();
+
+  } catch (e) {
+    console.error("読み込みエラー:", e);
+    alert("曲リスト読み込み失敗:\n" + e.message);
+  }
+}
+
 
 let setlist = JSON.parse(localStorage.getItem("setlist") || "[]");
 
@@ -143,7 +160,7 @@ function createButtons() {
   });
 }
 
-createButtons();
+loadSongs();
 render();
 </script>
 
