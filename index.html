@@ -32,13 +32,19 @@ input {
 
 button {
   width: 100%;
-  padding: 16px;
+  padding: 10px;
   margin: 4px 0;
-  font-size: 18px;
+  font-size: 20px;
   border-radius: 8px;
   border: none;
   background: #333;
   color: white;
+}
+
+#songs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;  /* 2列 */
+  gap: 8px;
 }
 
 button:active { background: #555; }
