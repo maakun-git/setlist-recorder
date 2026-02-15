@@ -1,174 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Setlist Recorder</title>
-<style>
-body {
-  background: #111;
-  color: white;
-  font-family: sans-serif;
-  margin: 0;
-  padding: 10px;
-}
-
-h2 { margin: 5px 0; }
-
-input {
-  width: 100%;
-  padding: 12px;
-  margin: 4px 0;
-  font-size: 16px;
-  border-radius: 6px;
-  border: none;
-}
-
-#list {
-  min-height: 120px;
-  margin-bottom: 10px;
-  font-size: 18px;
-}
-
-button {
-  width: 100%;
-  padding: 10px;
-  margin: 4px 0;
-  font-size: 20px;
-  border-radius: 8px;
-  border: none;
-  background: #333;
-  color: white;
-}
-
-#songs {
-  display: grid;
-  grid-template-columns: 1fr 1fr;  /* 2列 */
-  gap: 8px;
-}
-
-button:active { background: #555; }
-
-.control { background: #880000; }
-.copy { background: #006688; }
-
-.fixed-top {
-  position: sticky;
-  top: 0;
-  background: #111;
-  padding-bottom: 6px;
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Setlist Memo Tool</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<div class="fixed-top">
-<h2>セットリスト</h2>
+  <!-- 固定トップバー -->
+  <div id="topBar">
+    <button id="menuBtn">☰</button>
+    <button class="control" onclick="undo()">← 戻る</button>
+    <button class="copy" onclick="copySetlist()">📋 コピー</button>
+  </div>
 
-<input id="venue" placeholder="会場名">
+  <!-- メニュー（非表示） -->
+  <div id="menu">
+    <input id="venue" placeholder="会場名">
+    <input id="hashtags" placeholder="#アーティスト名 #ツアー名">
+    <button class="menu-danger-btn" onclick="clearSetlist()">セトリ全削除</button>
+  </div>
 
-<input id="hashtags" placeholder="#アーティスト名 #ツアー名">
+  <!-- セトリエリア -->
+  <div id="setlistArea">
+    <div id="list"></div>
+  </div>
 
-<div id="list"></div>
+  <!-- ボタンエリア -->
+  <div id="buttonArea">
+    <div id="songs"></div>
+  </div>
 
-<button class="control" onclick="undo()">← 1曲戻る</button>
-<button class="copy" onclick="copySetlist()">📋 コピー</button>
-
-<hr>
-</div>
-
-<div id="songs"></div>
-
-<script>
-let songList = [];
-
-async function loadSongs() {
-  try {
-    const response = await fetch("theEncore.json");
-
-    // HTTPエラーを明示的に検出
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    // const text = await response.text();
-    // console.log("取得した生データ:", text);
-    // songList = JSON.parse(text);
-
-    songList = await response.json();
-    createButtons();
-
-  } catch (e) {
-    console.error("読み込みエラー:", e);
-    alert("曲リスト読み込み失敗:\n" + e.message);
-  }
-}
-
-
-let setlist = JSON.parse(localStorage.getItem("setlist") || "[]");
-
-function formatDate() {
-  const d = new Date();
-  const y = d.getFullYear();
-  const m = String(d.getMonth()+1).padStart(2,"0");
-  const day = String(d.getDate()).padStart(2,"0");
-  return `${y}/${m}/${day}`;
-}
-
-function render() {
-  const listDiv = document.getElementById("list");
-  listDiv.innerHTML = "";
-  setlist.forEach((item, i) => {
-    listDiv.innerHTML += `${i+1}. ${item.name}<br>`;
-  });
-}
-
-function addSong(name) {
-  setlist.push({ name, time: new Date().toISOString() });
-  localStorage.setItem("setlist", JSON.stringify(setlist));
-  render();
-}
-
-function undo() {
-  setlist.pop();
-  localStorage.setItem("setlist", JSON.stringify(setlist));
-  render();
-}
-
-function copySetlist() {
-  if (setlist.length === 0) return;
-
-  const venue = document.getElementById("venue").value;
-  const hashtags = document.getElementById("hashtags").value;
-
-  let text = `【${formatDate()} ${venue}】\n\n`;
-
-  setlist.forEach((item, i) => {
-    text += `${i+1}. ${item.name}\n`;
-  });
-
-  if (hashtags.trim() !== "") {
-    text += `\n${hashtags}`;
-  }
-
-  navigator.clipboard.writeText(text).then(() => {
-    alert("コピーしました！");
-  });
-}
-
-function createButtons() {
-  const div = document.getElementById("songs");
-  songList.forEach(song => {
-    const btn = document.createElement("button");
-    btn.innerText = song;
-    btn.onclick = () => addSong(song);
-    div.appendChild(btn);
-  });
-}
-
-loadSongs();
-render();
-</script>
-
+  <script src="js/script.js"></script>
 </body>
 </html>
