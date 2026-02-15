@@ -21,6 +21,8 @@ async function loadArtists() {
 
   select.value = currentArtistFile;
 
+  applyArtistHashtags(currentArtistFile);
+
   select.onchange = async () => {
     currentArtistFile = select.value;
     localStorage.setItem("artistFile", currentArtistFile);
