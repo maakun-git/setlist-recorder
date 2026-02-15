@@ -3,7 +3,7 @@ let setlist = JSON.parse(localStorage.getItem("setlist") || "[]");
 
 async function loadSongs() {
   try {
-    const response = await fetch("../data/songs/theEncore.json?t=" + Date.now());
+    const response = await fetch("data/songs/theEncore.json?t=" + Date.now());
 
     if (!response.ok) {
       throw new Error(`HTTP error! ${response.status}`);
