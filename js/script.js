@@ -76,21 +76,39 @@ function undo() {
   render();
 }
 
+function formatDate() {
+  const d = new Date();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${m}/${day}`;
+}
+
 function copySetlist() {
   if (setlist.length === 0) return;
 
-  const venue = document.getElementById("venue").value;
-  const hashtags = document.getElementById("hashtags").value;
+  const venue = document.getElementById("venue").value.trim();
+  const hashtags = document.getElementById("hashtags").value.trim();
 
-  let text = `【${formatDate()} ${venue}】\n\n`;
+  let text = "";
 
+  // 1行目：日付＋会場（会場があれば @ 付き）
+  if (venue !== "") {
+    text += `【${formatDate()} @ ${venue}】\n`;
+  } else {
+    text += `【${formatDate()}】\n`;
+  }
+
+  // 2行目：ハッシュタグ（あれば）
+  if (hashtags !== "") {
+    text += `${hashtags}\n`;
+  }
+
+  text += `\n`;
+
+  // 3行目以降：セトリ
   setlist.forEach((item, i) => {
     text += `${i + 1}. ${item.name}\n`;
   });
-
-  if (hashtags.trim() !== "") {
-    text += `\n${hashtags}`;
-  }
 
   navigator.clipboard.writeText(text).then(() => {
     alert("コピーしました！");
@@ -132,6 +150,11 @@ function clearSetlist() {
     localStorage.removeItem("setlist");
     render();
   }
+}
+
+function closeMenu() {
+  const menu = document.getElementById("menu");
+  menu.style.display = menu.style.display === "block" ? "none" : "block";
 }
 
 loadSongs();
