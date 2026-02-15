@@ -109,6 +109,18 @@ function createButtons() {
   });
 }
 
+function createSongButtons(songList) {
+  const div = document.getElementById("songs");
+  div.innerHTML = "";
+
+  songList.forEach(song => {
+    const btn = document.createElement("button");
+    btn.textContent = song;
+    btn.onclick = () => addSong(song);
+    div.appendChild(btn);
+  });
+}
+
 document.getElementById("menuBtn").onclick = () => {
   const menu = document.getElementById("menu");
   menu.style.display = menu.style.display === "block" ? "none" : "block";

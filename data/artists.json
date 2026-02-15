@@ -1,0 +1,22 @@
+[
+  {
+    "name": "THE ENCORE",
+    "file": "data/songs/theEncore.json",
+    "defaultHashtags": ["#あんこのセトリ", "#あんこ"]
+  },
+  {
+    "name": "手羽先センセーション",
+    "file": "data/songs/tebasen.json",
+    "defaultHashtags": ["#手羽センセトリ"]
+  },
+    {
+    "name": "君に、胸キュン。",
+    "file": "data/songs/kimikyun.json",
+    "defaultHashtags": ["#君キュンセトリ"]
+  },
+    {
+    "name": "W.ダブルヴィー",
+    "file": "data/songs/doublevee.json",
+    "defaultHashtags": ["#ダブルヴィーセトリ"]
+  }
+]

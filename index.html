@@ -17,6 +17,11 @@
 
   <!-- メニュー（非表示） -->
   <div id="menu">
+    <div class="select-group">
+      <label for="artistSelect">アーティスト</label>
+      <select id="artistSelect"></select>
+    </div>
+
     <input id="venue" placeholder="会場名">
     <input id="hashtags" placeholder="#アーティスト名 #ツアー名">
     <button class="menu-danger-btn" onclick="clearSetlist()">セトリ全削除</button>
@@ -33,5 +38,7 @@
   </div>
 
   <script src="js/script.js"></script>
+  <script src="js/artistManager.js"></script>
+
 </body>
 </html>
