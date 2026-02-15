@@ -16,7 +16,32 @@
     <button id="menuBtn">☰</button>
     <button class="control" onclick="undo()">← 戻る</button>
     <button class="copy" onclick="copySetlist()">📋 コピー</button>
+    <button id="helpBtn">？</button>
   </div>
+
+  <!-- ヘルプ -->
+  <div id="helpModal" class="modal">
+  <div class="modal-content">
+    <h2>使い方</h2>
+
+    <h3>基本操作</h3>
+    <ul>
+      <li>曲ボタンを押すとセトリに追加されます</li>
+      <li>「←1曲戻る」で直前の曲を削除します</li>
+      <li>「コピー」でSNS投稿用テキストを生成します</li>
+    </ul>
+
+    <h3>ハンバーガーメニュー</h3>
+    <ul>
+      <li>アーティスト切替</li>
+      <li>会場入力</li>
+      <li>ハッシュタグ設定</li>
+      <li>セトリ全削除</li>
+    </ul>
+
+    <button class="modal-close" onclick="closeHelp()">閉じる</button>
+  </div>
+</div>
 
   <!-- メニュー（非表示） -->
   <div id="menu">

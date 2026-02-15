@@ -24,12 +24,77 @@ body {
 }
 
 #topBar button {
-  flex: 1;
   font-size: 16px;
   padding: 10px;
   border-radius: 8px;
   border: none;
   color: white;
+}
+
+/* 両端は固定サイズ */
+#menuBtn,
+#helpBtn {
+  flex: 0 0 44px;
+  padding: 10px 0;
+}
+
+/* 中央2つだけ伸ばす */
+.control,
+.copy {
+  flex: 1;
+}
+
+#helpBtn {
+  border-radius: 50%;
+  border: none;
+  font-size: 18px;
+  font-weight: bold;
+  background: #666;
+  color: white;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.modal.open {
+  display: flex;
+}
+
+.modal-content {
+  background: #ffffff;
+  color: #222;        /* ← 重要 */
+  width: 90%;
+  max-width: 400px;
+  padding: 20px;
+  border-radius: 16px;
+  box-sizing: border-box;
+}
+
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  width: 90%;
+  max-width: 400px;
+  border-radius: 10px;
+}
+
+.modal-close {
+  display: block;
+  margin: 24px auto 0;   /* ← 真ん中 */
+  padding: 12px 24px;
+  border-radius: 999px;  /* 完全丸 */
+  border: none;
+  background: #333;
+  color: #fff;
+  font-size: 14px;
 }
 
 #menuBtn {

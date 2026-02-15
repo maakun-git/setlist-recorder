@@ -157,5 +157,13 @@ function closeMenu() {
   menu.style.display = menu.style.display === "block" ? "none" : "block";
 }
 
+document.getElementById("helpBtn").onclick = () => {
+  document.getElementById("helpModal").style.display = "flex";
+};
+
+function closeHelp() {
+  document.getElementById("helpModal").style.display = "none";
+}
+
 loadSongs();
 render();
