@@ -53,13 +53,14 @@ body {
   color: white;
 }
 
+
 .modal {
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,0.4);
   display: none;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start; /* 上寄せ */
   z-index: 2000;
 }
 
@@ -79,12 +80,17 @@ body {
 
 
 .modal-content {
-  background: white;
-  padding: 20px;
+  background: #111;
+  color: white;
   width: 90%;
   max-width: 400px;
-  border-radius: 10px;
+  max-height: 90vh; /* 画面の90%まで */
+  padding: 20px;
+  border-radius: 16px;
+  overflow-y: auto;  /* 高さ超えたらスクロール */
+  box-sizing: border-box;
 }
+
 
 .modal-close {
   display: block;
