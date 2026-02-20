@@ -23,8 +23,8 @@
   <!-- 固定トップバー -->
   <div id="topBar">
     <button id="menuBtn">☰</button>
-    <button class="control" onclick="undo()">← 戻る</button>
-    <button class="copy" onclick="copySetlist()">📋 コピー</button>
+    <button class="control" id="undoBtn">← 戻る</button>
+    <button class="copy" id="copyBtn">📋 コピー</button>
     <button id="helpBtn">？</button>
   </div>
 
@@ -53,7 +53,7 @@
       <li>セトリ全削除</li>
     </ul>
 
-    <button class="modal-close" onclick="closeHelp()">閉じる</button>
+  <button class="modal-close" id="helpCloseBtn">閉じる</button>
   </div>
 </div>
 
@@ -66,8 +66,8 @@
 
     <input id="venue" placeholder="会場名">
     <input id="hashtags" placeholder="#アーティスト名">
-    <button class="menu-danger-btn" onclick="clearSetlist()">セトリ全削除</button>
-    <button class="menu-bottom-close" onclick="closeMenu()">メニュー閉じる</button>
+    <button class="menu-danger-btn" id="clearBtn">セトリ全削除</button>
+    <button class="menu-bottom-close" id="menuCloseBtn">メニュー閉じる</button>
   </div>
 
   <!-- セトリエリア -->
@@ -80,8 +80,7 @@
     <div id="songs"></div>
   </div>
 
-  <script src="js/script.js?v=1.0.1"></script>
-  <script src="js/artistManager.js?v=1.0.1"></script>
+  <script type="module" src="js/app.js?v=3"></script>
 
 </body>
 </html>
