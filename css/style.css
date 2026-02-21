@@ -1,6 +1,6 @@
-@import "css/base.css";
-@import "css/topBar.css";
-@import "css/menu.css";
-@import "css/help.css";
-@import "css/setlistArea.css";
-@import "css/buttonArea.css";
+@import "../css/base.css";
+@import "../css/topBar.css";
+@import "../css/menu.css";
+@import "../css/help.css";
+@import "../css/setlistArea.css";
+@import "../css/buttonArea.css";
