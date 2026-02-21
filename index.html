@@ -21,6 +21,7 @@
   <link rel="stylesheet" href="css/menu.css?v=1.0.2">
   <link rel="stylesheet" href="css/help.css?v=1.0.2">
   <link rel="stylesheet" href="css/setlistArea.css?v=1.0.2">
+  <link rel="stylesheet" href="css/tab.css?v=1.0.2">
   <link rel="stylesheet" href="css/buttonArea.css?v=1.0.2">
 </head>
 <body>
@@ -51,10 +52,23 @@
     <div id="list"></div>
   </div>
 
+  <div id="tabBar">
+  <button id="songsTab" class="tab active">Songs</button>
+  <button id="otherTab" class="tab">Other</button>
+</div>
   <!-- ボタンエリア -->
-  <div id="buttonArea">
+<div id="buttonArea">
+  <div id="songsArea">
     <div id="songs"></div>
   </div>
+
+  <div id="otherArea" style="display:none;">
+    <button class="other-btn">MC</button>
+    <button class="other-btn">Medley Start</button>
+    <button class="other-btn">Medley End</button>
+    <button class="other-btn">Encore</button>
+  </div>
+</div>
 
   <script type="module" src="js/app.js?v=3"></script>
 

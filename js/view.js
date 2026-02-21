@@ -2,6 +2,7 @@ import { AppState } from "./state.js";
 
 let controllerRef = null;
 
+
 export function initView(controller) {
     controllerRef = controller;
 
@@ -24,7 +25,26 @@ export function initView(controller) {
     document.getElementById("menuCloseBtn")
             .addEventListener("click", () => controller.handleMenuClose());
 
-    controller.initApp();
+    const songsTab = document.getElementById("songsTab");
+    const otherTab = document.getElementById("otherTab");
+    const songsArea = document.getElementById("songsArea");
+    const otherArea = document.getElementById("otherArea");
+
+    songsTab.addEventListener("click", () => {
+      songsTab.classList.add("active");
+      otherTab.classList.remove("active");
+      songsArea.style.display = "block";
+      otherArea.style.display = "none";
+    });
+
+    otherTab.addEventListener("click", () => {
+      otherTab.classList.add("active");
+      songsTab.classList.remove("active");
+      songsArea.style.display = "none";
+      otherArea.style.display = "block";
+    });
+
+  controller.initApp();
 }
 
 export function renderAll() {
