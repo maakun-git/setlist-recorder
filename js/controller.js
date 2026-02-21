@@ -134,7 +134,4 @@ export class Controller {
     document.getElementById("menu").style.display = "none";
   }
 
-  handleHelpClose() {
-    document.getElementById("helpModal").style.display = "none";
-  }
 }

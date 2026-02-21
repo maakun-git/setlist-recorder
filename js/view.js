@@ -21,16 +21,8 @@ export function initView(controller) {
                 menu.style.display = isOpen ? "none" : "block";
             });
 
-    document.getElementById("helpBtn")
-            .addEventListener("click", () => {
-                document.getElementById("helpModal").style.display = "block";
-            });
-
     document.getElementById("menuCloseBtn")
             .addEventListener("click", () => controller.handleMenuClose());
-
-    document.getElementById("helpCloseBtn")
-            .addEventListener("click", () => controller.handleHelpClose());
 
     controller.initApp();
 }
@@ -74,7 +66,6 @@ function renderSetlist() {
     listDiv.innerHTML = AppState.setlist
         .map((s, i) => `${i + 1}. ${s.name}`)
         .join("<br>");
-    listDiv.scrollTop = listDiv.scrollHeight;
 }
 
 function renderHashtags() {
