@@ -1,0 +1,36 @@
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: none;
+  justify-content: center;
+  align-items: flex-start; /* 上寄せ */
+  z-index: 2000;
+}
+
+.modal.open {
+  display: flex;
+}
+
+.modal-content {
+  background: #111;
+  color: white;
+  width: 90%;
+  max-width: 400px;
+  max-height: 90vh; /* 画面の90%まで */
+  padding: 20px;
+  border-radius: 16px;
+  overflow-y: auto;  /* 高さ超えたらスクロール */
+  box-sizing: border-box;
+}
+
+.modal-close {
+  display: block;
+  margin: 24px auto 0;   /* ← 真ん中 */
+  padding: 12px 24px;
+  border-radius: 999px;  /* 完全丸 */
+  border: none;
+  background: #333;
+  color: #fff;
+  font-size: 14px;
+}

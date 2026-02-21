@@ -1,0 +1,82 @@
+#menuBtn {
+  flex: 0.6;
+  background: #444;
+}
+
+.control {
+  background: #880000;
+}
+
+.copy {
+  background: #006688;
+}
+
+/* メニュー */
+#menu {
+  display: none;
+  padding: 10px;
+  background: #222;
+}
+
+#menu input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 8px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: none;
+  box-sizing: border-box;
+}
+
+#artistSelect {
+  width: 100%;
+  padding: 12px 40px 12px 14px;
+  font-size: 16px;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  appearance: none;          /* ← 重要 */
+  -webkit-appearance: none;  /* Safari用 */
+  background-image: url("data:image/svg+xml;utf8,<svg fill='%23666' height='20' viewBox='0 0 20 20' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M5 7l5 5 5-5'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 18px;
+  box-sizing: border-box;
+}
+
+.select-group {
+  margin-bottom: 16px;
+}
+
+.select-group label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 6px;
+  color: #666;
+}
+
+.menu-danger-btn {
+  display: block;
+  width: 100%;
+  padding: 10px 12px;   /* ← 少し控えめ */
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  background-color: #d9534f;
+  color: white;
+  margin-top: 16px;
+}
+
+.menu-danger-btn:active {
+  opacity: 0.8;
+}
+
+.menu-bottom-close {
+  width: 100%;
+  padding: 14px;
+  margin-top: 30px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+}

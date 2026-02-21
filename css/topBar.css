@@ -1,0 +1,40 @@
+/* 上固定バー */
+#topBar {
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  background: #000;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+#topBar button {
+  font-size: 16px;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  color: white;
+}
+
+/* 両端は固定サイズ */
+#menuBtn,
+#helpBtn {
+  flex: 0 0 44px;
+  padding: 10px 0;
+}
+
+/* 中央2つだけ伸ばす */
+.control,
+.copy {
+  flex: 1;
+}
+
+#helpBtn {
+  border-radius: 50%;
+  border: none;
+  font-size: 18px;
+  font-weight: bold;
+  background: #666;
+  color: white;
+}
