@@ -30,18 +30,26 @@ export function initView(controller) {
     const songsArea = document.getElementById("songsArea");
     const otherArea = document.getElementById("otherArea");
 
+    const buttonArea = document.getElementById("buttonArea");
+
     songsTab.addEventListener("click", () => {
         songsTab.classList.add("active");
         otherTab.classList.remove("active");
-        songsArea.classList.remove("hidden");
-        otherArea.classList.add("hidden");
+
+        songsArea.style.display = "block";
+        otherArea.style.display = "none";
+
+        buttonArea.classList.remove("other-mode");
     });
 
     otherTab.addEventListener("click", () => {
         otherTab.classList.add("active");
         songsTab.classList.remove("active");
-        songsArea.classList.add("hidden");
-        otherArea.classList.remove("hidden");
+
+        songsArea.style.display = "none";
+        otherArea.style.display = "block";
+
+        buttonArea.classList.add("other-mode");
     });
 
     // Otherボタン
