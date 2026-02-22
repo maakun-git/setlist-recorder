@@ -33,15 +33,15 @@ export function initView(controller) {
     songsTab.addEventListener("click", () => {
       songsTab.classList.add("active");
       otherTab.classList.remove("active");
-      songsArea.style.display = "block";
-      otherArea.style.display = "none";
+      songsArea.classList.remove("hidden");
+      otherArea.classList.add("hidden");
     });
 
     otherTab.addEventListener("click", () => {
       otherTab.classList.add("active");
       songsTab.classList.remove("active");
-      songsArea.style.display = "none";
-      otherArea.style.display = "block";
+      songsArea.classList.add("hidden");
+      otherArea.classList.remove("hidden");
     });
 
   controller.initApp();
