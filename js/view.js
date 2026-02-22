@@ -109,9 +109,34 @@ function renderSongs() {
 
 function renderSetlist() {
     const listDiv = document.getElementById("list");
-    listDiv.innerHTML = AppState.setlist
-        .map((s, i) => `${i + 1}. ${s.name}`)
-        .join("<br>");
+
+    let songNumber = 0;
+
+    const html = AppState.setlist.map(item => {
+
+        if (!item.type || item.type === "song") {
+            songNumber++;
+            return `<div class="song-line">${songNumber}. ${item.name}</div>`;
+        }
+
+        if (item.type === "encore") {
+            return `<div class="encore-line">★ ${item.name}</div>`;
+        }
+
+        if (item.type === "medley-start") {
+            return `<div class="medley-start">─── ${item.name} ───</div>`;
+        }
+
+        if (item.type === "medley-end") {
+            return `<div class="medley-end">─── ${item.name} ───</div>`;
+        }
+
+        // MC / special / free など
+        return `<div class="other-line">${item.name}</div>`;
+
+    }).join("");
+
+    listDiv.innerHTML = html;
 }
 
 function renderHashtags() {

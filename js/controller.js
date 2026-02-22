@@ -63,24 +63,12 @@ export class Controller {
     }
 
     handleSongClick(name) {
-        updateState(state => {
-            state.setlist.push({
-                name,
-                time: new Date().toISOString(),
-            });
-        });
+        this.addToSetlist(name, "song");
 
         sendAnalytics("song_click", {
             artist: AppState.currentArtist,
             song: name,
         });
-
-        renderAll();
-
-        this.setBottomPadding(false);
-
-        const area = document.getElementById("setlistArea");
-        area.scrollTop = area.scrollHeight;
     }
 
     handleOther(type) {
@@ -95,15 +83,16 @@ export class Controller {
         const label = map[type];
         if (!label) return;
 
-        this.addToSetlist(label);
+        this.addToSetlist(label, type);
 
         sendAnalytics("other_click", { type });
     }
 
-    addToSetlist(name) {
+    addToSetlist(name, type = "song") {
         updateState(state => {
             state.setlist.push({
                 name,
+                type,
                 time: new Date().toISOString(),
             });
         });
@@ -117,7 +106,9 @@ export class Controller {
     }
 
     handleFreeWord(text) {
-        this.addToSetlist(text);
+        this.addToSetlist(text, "free");
+
+        sendAnalytics("freeword_add", { text });
     }
 
     handleUndo() {

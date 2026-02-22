@@ -7,10 +7,34 @@
 }
 
 #setlistAreaInner {
-  padding-bottom: 0; /* JSで上書きする */
+  padding-bottom: 0;
+  /* JSで上書きする */
 }
 
 #list {
   font-size: 20px;
   line-height: 1.4;
+}
+
+.song-line {
+  font-size: 18px;
+}
+
+.other-line {
+  font-size: 17px;
+  opacity: 0.9;
+  font-weight: bold;
+  color: gold;
+}
+
+.encore-line {
+  font-size: 18px;
+  font-weight: bold;
+  color: gold;
+}
+
+.medley-start,
+.medley-end {
+  font-weight: bold;
+  padding: 4px 0;
 }
