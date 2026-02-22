@@ -4,20 +4,28 @@
   padding: 8px 10px 0;
 }
 
-.tab {
+#tabBar .tab {
   flex: 1;
-  padding: 10px;
-  font-size: 16px;
+  padding: 12px;
   border-radius: 12px 12px 0 0;
   border: none;
-  background: #222;
+  transition: all 0.2s ease;
+}
+
+#tabBar .tab:not(.active) {
+  font-size: 18px;
+  background: #142a33;
+  color: #AAAAAA;
+  font-weight: bold;
+
+  border: 2px solid #1f3a45;
+}
+
+#tabBar .tab.active {
+  font-size: 20px;
+  background: #006688;
   color: white;
-}
-
-.tab.active {
-  background: #880000;
-}
-
-.hidden {
-  display: none;
+  border: 2px solid #00bcd4;
+  border-bottom: 5px solid #00bcd4;
+  font-weight: bold;
 }

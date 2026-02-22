@@ -5,11 +5,6 @@
   padding: 10px;
 }
 
-#tabBar button.active {
-  background: #006688;
-  font-weight: bold;
-}
-
 /* Otherタブ時の背景 */
 #buttonArea.other-mode {
   background: #16213e;
