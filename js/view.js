@@ -78,6 +78,23 @@ export function initView(controller) {
             }
         });
 
+    const songFreeInput = document.getElementById("songFreeInput");
+    const songFreeAddBtn = document.getElementById("songFreeAddBtn");
+
+    songFreeAddBtn.addEventListener("click", () => {
+        const value = songFreeInput.value.trim();
+        if (!value) return;
+
+        controller.handleSongClick(value); // ← ここがポイント
+
+        songFreeInput.value = "";
+    });
+
+    songFreeInput.addEventListener("keydown", e => {
+        if (e.key === "Enter") {
+            songFreeAddBtn.click();
+        }
+    });
     controller.initApp();
 }
 
