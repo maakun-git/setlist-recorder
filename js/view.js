@@ -17,13 +17,13 @@ export function initView(controller) {
 
     const menu = document.getElementById("menu");
     document.getElementById("menuBtn")
-            .addEventListener("click", () => {
-                const isOpen = menu.style.display === "block";
-                menu.style.display = isOpen ? "none" : "block";
-            });
+        .addEventListener("click", () => {
+            const isOpen = menu.style.display === "block";
+            menu.style.display = isOpen ? "none" : "block";
+        });
 
     document.getElementById("menuCloseBtn")
-            .addEventListener("click", () => controller.handleMenuClose());
+        .addEventListener("click", () => controller.handleMenuClose());
 
     const songsTab = document.getElementById("songsTab");
     const otherTab = document.getElementById("otherTab");
@@ -31,80 +31,80 @@ export function initView(controller) {
     const otherArea = document.getElementById("otherArea");
 
     songsTab.addEventListener("click", () => {
-      songsTab.classList.add("active");
-      otherTab.classList.remove("active");
-      songsArea.classList.remove("hidden");
-      otherArea.classList.add("hidden");
+        songsTab.classList.add("active");
+        otherTab.classList.remove("active");
+        songsArea.classList.remove("hidden");
+        otherArea.classList.add("hidden");
     });
 
     otherTab.addEventListener("click", () => {
-      otherTab.classList.add("active");
-      songsTab.classList.remove("active");
-      songsArea.classList.add("hidden");
-      otherArea.classList.remove("hidden");
+        otherTab.classList.add("active");
+        songsTab.classList.remove("active");
+        songsArea.classList.add("hidden");
+        otherArea.classList.remove("hidden");
     });
 
     // Otherボタン
     document.querySelectorAll(".other-btn").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const type = btn.dataset.type;
-        controller.handleOther(type);
-      });
+        btn.addEventListener("click", () => {
+            const type = btn.dataset.type;
+            controller.handleOther(type);
+        });
     });
 
     // フリーワード追加
     document.getElementById("freeWordAddBtn")
-      .addEventListener("click", () => {
-        const input = document.getElementById("freeWordInput");
-        const text = input.value.trim();
-        if (!text) return;
+        .addEventListener("click", () => {
+            const input = document.getElementById("freeWordInput");
+            const text = input.value.trim();
+            if (!text) return;
 
-        controller.handleFreeWord(text);
-        input.value = "";
-      });
+            controller.handleFreeWord(text);
+            input.value = "";
+        });
 
-  document.getElementById("freeWordInput")
-    .addEventListener("keydown", (e) => {
-      if (e.key === "Enter") {
-        document.getElementById("freeWordAddBtn").click();
-      }
-  });      
+    document.getElementById("freeWordInput")
+        .addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+                document.getElementById("freeWordAddBtn").click();
+            }
+        });
 
-  controller.initApp();
+    controller.initApp();
 }
 
 export function renderAll() {
-  renderArtistSelect();
-  renderSongs();
-  renderSetlist();
-  renderHashtags();
+    renderArtistSelect();
+    renderSongs();
+    renderSetlist();
+    renderHashtags();
 }
 
 function renderArtistSelect() {
-  const select = document.getElementById("artistSelect");
-  select.innerHTML = "";
+    const select = document.getElementById("artistSelect");
+    select.innerHTML = "";
 
-  AppState.artists.forEach(a => {
-    const option = document.createElement("option");
-    option.value = a.file;
-    option.textContent = a.name;
-    select.appendChild(option);
-  });
+    AppState.artists.forEach(a => {
+        const option = document.createElement("option");
+        option.value = a.file;
+        option.textContent = a.name;
+        select.appendChild(option);
+    });
 
-  select.value = AppState.currentArtist;
-  select.onchange = () => controllerRef.changeArtist(select.value);
+    select.value = AppState.currentArtist;
+    select.onchange = () => controllerRef.changeArtist(select.value);
 }
 
 function renderSongs() {
-  const div = document.getElementById("songs");
-  div.innerHTML = "";
+    const div = document.getElementById("songs");
+    div.innerHTML = "";
 
-  AppState.songs.forEach(song => {
-    const btn = document.createElement("button");
-    btn.textContent = song;
-    btn.onclick = () => controllerRef.handleSongClick(song);
-    div.appendChild(btn);
-  });
+    AppState.songs.forEach(song => {
+        const btn = document.createElement("button");
+        btn.textContent = song;
+        btn.onclick = () => controllerRef.handleSongClick(song);
+        div.appendChild(btn);
+    });
 }
 
 function renderSetlist() {
@@ -115,8 +115,8 @@ function renderSetlist() {
 }
 
 function renderHashtags() {
-  const input = document.getElementById("hashtags");
-  if (!input) return;
+    const input = document.getElementById("hashtags");
+    if (!input) return;
 
     input.value = AppState.hashtags
         .map(tag => `${tag}`)

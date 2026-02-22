@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
   <meta http-equiv="Cache-Control" content="no-store">
   <meta http-equiv="Pragma" content="no-cache">
@@ -11,7 +12,7 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-R1NX68VTV6"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
 
     gtag('config', 'G-R1NX68VTV6');
@@ -24,6 +25,7 @@
   <link rel="stylesheet" href="css/tab.css?v=1.0.2">
   <link rel="stylesheet" href="css/buttonArea.css?v=1.0.2">
 </head>
+
 <body>
 
   <!-- 固定トップバー -->
@@ -53,35 +55,36 @@
   </div>
 
   <div id="tabBar">
-  <button id="songsTab" class="tab active">曲リスト</button>
-  <button id="otherTab" class="tab">その他</button>
-</div>
+    <button id="songsTab" class="tab active">曲リスト</button>
+    <button id="otherTab" class="tab">その他</button>
+  </div>
   <!-- ボタンエリア -->
-<div id="buttonArea">
-  <div id="songsArea">
-    <div id="songs"></div>
-  </div>
-
-  <!-- Other -->
-  <div id="otherArea" class="hidden">
-
-    <div class="other-grid">
-      <button class="other-btn" data-type="mc">MC</button>
-      <button class="other-btn" data-type="special">企画コーナー</button>
-      <button class="other-btn" data-type="medley-start">メドレー開始</button>
-      <button class="other-btn" data-type="medley-end">メドレー終了</button>
-      <button class="other-btn" data-type="encore">アンコール</button>
+  <div id="buttonArea">
+    <div id="songsArea">
+      <div id="songs"></div>
     </div>
 
-    <div class="freeword-area">
-      <input type="text" id="freeWordInput" placeholder="フリーワード">
-      <button id="freeWordAddBtn">追加</button>
-    </div>
+    <!-- Other -->
+    <div id="otherArea" class="hidden">
 
+      <div class="other-grid">
+        <button class="other-btn" data-type="mc">MC</button>
+        <button class="other-btn" data-type="special">企画コーナー</button>
+        <button class="other-btn" data-type="medley-start">メドレー開始</button>
+        <button class="other-btn" data-type="medley-end">メドレー終了</button>
+        <button class="other-btn" data-type="encore">アンコール</button>
+      </div>
+
+      <div class="freeword-area">
+        <input type="text" id="freeWordInput" placeholder="フリーワード">
+        <button id="freeWordAddBtn">追加</button>
+      </div>
+
+    </div>
   </div>
-</div>
 
   <script type="module" src="js/app.js?v=3"></script>
 
 </body>
+
 </html>

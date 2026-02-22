@@ -3,172 +3,171 @@ import { fetchJSON, sendAnalytics } from "./service.js";
 import { renderAll } from "./view.js";
 
 export class Controller {
-  constructor(state) {
-    this.state = state;
-  }
+    constructor(state) {
+        this.state = state;
+    }
 
-  async initApp() {
-    const artists = await fetchJSON("data/artists.json");
+    async initApp() {
+        const artists = await fetchJSON("data/artists.json");
 
-    updateState(state => {
-      state.artists = artists;
-      state.currentArtist = localStorage.getItem("artistFile") || artists[0].file;
-    });
+        updateState(state => {
+            state.artists = artists;
+            state.currentArtist = localStorage.getItem("artistFile") || artists[0].file;
+        });
 
-    await this.loadSongs(AppState.currentArtist);
-    renderAll();
-  }
+        await this.loadSongs(AppState.currentArtist);
+        renderAll();
+    }
 
-  async loadSongs(file) {
-    const songs = await fetchJSON(file);
+    async loadSongs(file) {
+        const songs = await fetchJSON(file);
 
-    updateState(state => {
-      state.songs = songs;
-      state.currentArtist = file;
-      const artist = state.artists.find(a => a.file === file);
+        updateState(state => {
+            state.songs = songs;
+            state.currentArtist = file;
+            const artist = state.artists.find(a => a.file === file);
 
-      state.hashtags = artist?.defaultHashtags
-        ? [...artist.defaultHashtags]
-        : [];
-        
-        console.log("hashtags set to:", state.hashtags); 
-      });
+            state.hashtags = artist?.defaultHashtags
+                ? [...artist.defaultHashtags]
+                : [];
 
-    localStorage.setItem("artistFile", file);
-    renderAll();
-  }
+            console.log("hashtags set to:", state.hashtags);
+        });
 
-  changeArtist(file) {
-    this.loadSongs(file);
-    sendAnalytics("artist_change", { artist: file });
-  }
+        localStorage.setItem("artistFile", file);
+        renderAll();
+    }
 
-  setBottomPadding(enable) {
-  const listDiv = document.getElementById("list");
+    changeArtist(file) {
+        this.loadSongs(file);
+        sendAnalytics("artist_change", { artist: file });
+    }
 
-  if (!enable) {
-    listDiv.style.paddingBottom = "0px";
-    return;
-  }
+    setBottomPadding(enable) {
+        const listDiv = document.getElementById("list");
 
-  const computedStyle = window.getComputedStyle(listDiv);
-  let lineHeight = parseFloat(computedStyle.lineHeight);
+        if (!enable) {
+            listDiv.style.paddingBottom = "0px";
+            return;
+        }
 
-  if (isNaN(lineHeight)) {
-    const fontSize = parseFloat(computedStyle.fontSize);
-    lineHeight = fontSize * 1.4;
-  }
+        const computedStyle = window.getComputedStyle(listDiv);
+        let lineHeight = parseFloat(computedStyle.lineHeight);
 
-  listDiv.style.paddingBottom = lineHeight + "px";
-}
+        if (isNaN(lineHeight)) {
+            const fontSize = parseFloat(computedStyle.fontSize);
+            lineHeight = fontSize * 1.4;
+        }
 
+        listDiv.style.paddingBottom = lineHeight + "px";
+    }
 
-  handleSongClick(name) {
-    updateState(state => {
-      state.setlist.push({
-        name,
-        time: new Date().toISOString(),
-      });
-    });
+    handleSongClick(name) {
+        updateState(state => {
+            state.setlist.push({
+                name,
+                time: new Date().toISOString(),
+            });
+        });
 
-    sendAnalytics("song_click", {
-      artist: AppState.currentArtist,
-      song: name,
-    });
+        sendAnalytics("song_click", {
+            artist: AppState.currentArtist,
+            song: name,
+        });
 
-    renderAll();
- 
-  this.setBottomPadding(false);
+        renderAll();
 
-  const area = document.getElementById("setlistArea");
-  area.scrollTop = area.scrollHeight;
-}
+        this.setBottomPadding(false);
 
-  handleOther(type) {
-    const map = {
-      "mc": "MC",
-      "special": "企画コーナー",
-      "medley-start": "メドレー開始",
-      "medley-end": "メドレー終了",
-      "encore": "アンコール"
-    };
+        const area = document.getElementById("setlistArea");
+        area.scrollTop = area.scrollHeight;
+    }
 
-    const label = map[type];
-    if (!label) return;
+    handleOther(type) {
+        const map = {
+            "mc": "MC",
+            "special": "企画コーナー",
+            "medley-start": "メドレー開始",
+            "medley-end": "メドレー終了",
+            "encore": "アンコール"
+        };
 
-    this.addToSetlist(label);
+        const label = map[type];
+        if (!label) return;
 
-    sendAnalytics("other_click", { type });
-  }
+        this.addToSetlist(label);
 
-  addToSetlist(name) {
-    updateState(state => {
-      state.setlist.push({
-        name,
-        time: new Date().toISOString(),
-      });
-    });
+        sendAnalytics("other_click", { type });
+    }
 
-    renderAll();
+    addToSetlist(name) {
+        updateState(state => {
+            state.setlist.push({
+                name,
+                time: new Date().toISOString(),
+            });
+        });
 
-    this.setBottomPadding(false);
+        renderAll();
 
-    const area = document.getElementById("setlistArea");
-    area.scrollTop = area.scrollHeight;
-  }
+        this.setBottomPadding(false);
 
-  handleFreeWord(text) {
-    this.addToSetlist(text);
-  }
+        const area = document.getElementById("setlistArea");
+        area.scrollTop = area.scrollHeight;
+    }
 
-  handleUndo() {
-    if (AppState.setlist.length === 0) return;
+    handleFreeWord(text) {
+        this.addToSetlist(text);
+    }
 
-    updateState(state => {
-        state.setlist.pop();
-    });
+    handleUndo() {
+        if (AppState.setlist.length === 0) return;
 
-    this.setBottomPadding(true);
-    renderAll();
-  }
+        updateState(state => {
+            state.setlist.pop();
+        });
 
-  handleClear() {
-    if (!confirm("セトリを全削除しますか？")) return;
+        this.setBottomPadding(true);
+        renderAll();
+    }
 
-    updateState(state => {
-      state.setlist = [];
-    });
-    renderAll();
-  }
+    handleClear() {
+        if (!confirm("セトリを全削除しますか？")) return;
 
- handleCopy() {
-  const today = new Date();
-  const mm = String(today.getMonth() + 1).padStart(2, "0");
-  const dd = String(today.getDate()).padStart(2, "0");
+        updateState(state => {
+            state.setlist = [];
+        });
+        renderAll();
+    }
 
-  const venue = document.getElementById("venue")?.value || "";
-  const hashtags = document.getElementById("hashtags")?.value || "";
+    handleCopy() {
+        const today = new Date();
+        const mm = String(today.getMonth() + 1).padStart(2, "0");
+        const dd = String(today.getDate()).padStart(2, "0");
 
-  const header = `【${mm}/${dd} @ ${venue}】`;
+        const venue = document.getElementById("venue")?.value || "";
+        const hashtags = document.getElementById("hashtags")?.value || "";
 
-  const setlistText = AppState.setlist
-    .map((s, i) => `${i + 1}. ${s.name}`)
-    .join("\n");
+        const header = `【${mm}/${dd} @ ${venue}】`;
 
-  const fullText = [
-    header,
-    hashtags,
-    "",
-    setlistText
-  ].join("\n");
+        const setlistText = AppState.setlist
+            .map((s, i) => `${i + 1}. ${s.name}`)
+            .join("\n");
 
-  navigator.clipboard.writeText(fullText)
-    .then(() => alert("コピーしました"))
-    .catch(err => console.error(err));
-}
+        const fullText = [
+            header,
+            hashtags,
+            "",
+            setlistText
+        ].join("\n");
 
-  handleMenuClose() {
-    document.getElementById("menu").style.display = "none";
-  }
+        navigator.clipboard.writeText(fullText)
+            .then(() => alert("コピーしました"))
+            .catch(err => console.error(err));
+    }
+
+    handleMenuClose() {
+        document.getElementById("menu").style.display = "none";
+    }
 
 }
