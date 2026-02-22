@@ -84,6 +84,43 @@ export class Controller {
   area.scrollTop = area.scrollHeight;
 }
 
+  handleOther(type) {
+    const map = {
+      "mc": "MC",
+      "special": "企画コーナー",
+      "medley-start": "メドレー開始",
+      "medley-end": "メドレー終了",
+      "encore": "アンコール"
+    };
+
+    const label = map[type];
+    if (!label) return;
+
+    this.addToSetlist(label);
+
+    sendAnalytics("other_click", { type });
+  }
+
+  addToSetlist(name) {
+    updateState(state => {
+      state.setlist.push({
+        name,
+        time: new Date().toISOString(),
+      });
+    });
+
+    renderAll();
+
+    this.setBottomPadding(false);
+
+    const area = document.getElementById("setlistArea");
+    area.scrollTop = area.scrollHeight;
+  }
+
+  handleFreeWord(text) {
+    this.addToSetlist(text);
+  }
+
   handleUndo() {
     if (AppState.setlist.length === 0) return;
 

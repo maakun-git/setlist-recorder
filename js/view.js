@@ -44,6 +44,32 @@ export function initView(controller) {
       otherArea.classList.remove("hidden");
     });
 
+    // Otherボタン
+    document.querySelectorAll(".other-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const type = btn.dataset.type;
+        controller.handleOther(type);
+      });
+    });
+
+    // フリーワード追加
+    document.getElementById("freeWordAddBtn")
+      .addEventListener("click", () => {
+        const input = document.getElementById("freeWordInput");
+        const text = input.value.trim();
+        if (!text) return;
+
+        controller.handleFreeWord(text);
+        input.value = "";
+      });
+
+  document.getElementById("freeWordInput")
+    .addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        document.getElementById("freeWordAddBtn").click();
+      }
+  });      
+
   controller.initApp();
 }
 
