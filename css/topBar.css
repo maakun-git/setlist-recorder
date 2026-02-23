@@ -38,3 +38,33 @@
   background: #666;
   color: white;
 }
+
+.toast {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 280px;
+  max-width: 80%;
+
+  background: #006688;
+  color: white;
+
+  padding: 24px 28px;
+  border-radius: 20px;
+
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 9999;
+}
+
+.toast.hidden {
+  opacity: 0;
+  transform: translate(-50%, -40%);
+  pointer-events: none;
+}

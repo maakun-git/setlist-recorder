@@ -1,6 +1,6 @@
 import { AppState, updateState } from "./state.js";
 import { fetchJSON, sendAnalytics } from "./service.js";
-import { renderAll } from "./view.js";
+import { renderAll, showToast } from "./view.js";
 
 export class Controller {
     constructor(state) {
@@ -131,6 +131,41 @@ export class Controller {
         renderAll();
     }
 
+    copyText(text) {
+        if (navigator.clipboard && window.isSecureContext) {
+            // HTTPS or localhost
+            return navigator.clipboard.writeText(text);
+        } else {
+            // フォールバック（http / 192.168.x.x 用）
+            return new Promise((resolve, reject) => {
+                const textarea = document.createElement("textarea");
+                textarea.value = text;
+                textarea.style.position = "fixed";
+                textarea.style.top = "0";
+                textarea.style.left = "0";
+                textarea.style.opacity = "0";
+
+                document.body.appendChild(textarea);
+                textarea.focus();
+                textarea.select();
+
+                try {
+                    const successful = document.execCommand("copy");
+                    document.body.removeChild(textarea);
+
+                    if (successful) {
+                        resolve();
+                    } else {
+                        reject(new Error("Copy failed"));
+                    }
+                } catch (err) {
+                    document.body.removeChild(textarea);
+                    reject(err);
+                }
+            });
+        }
+    }
+
     handleCopy() {
         const today = new Date();
         const mm = String(today.getMonth() + 1).padStart(2, "0");
@@ -152,13 +187,17 @@ export class Controller {
             setlistText
         ].join("\n");
 
-        navigator.clipboard.writeText(fullText)
-            .then(() => alert("コピーしました"))
-            .catch(err => console.error(err));
+        this.copyText(fullText)
+            .then(() => {
+                showToast("コピーしました！");
+            })
+            .catch(err => {
+                console.error(err);
+                showToast("コピーに失敗しました");
+            });
     }
 
     handleMenuClose() {
         document.getElementById("menu").style.display = "none";
     }
-
 }

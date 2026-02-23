@@ -105,6 +105,16 @@ export function renderAll() {
     renderHashtags();
 }
 
+export function showToast(message) {
+    const toast = document.getElementById("toast");
+    toast.textContent = message;
+    toast.classList.remove("hidden");
+
+    setTimeout(() => {
+        toast.classList.add("hidden");
+    }, 2000);
+}
+
 function renderArtistSelect() {
     const select = document.getElementById("artistSelect");
     select.innerHTML = "";
