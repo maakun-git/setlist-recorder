@@ -176,8 +176,15 @@ export class Controller {
 
         const header = `【${mm}/${dd} @ ${venue}】`;
 
-        const setlistText = AppState.setlist
-            .map((s, i) => `${i + 1}. ${s.name}`)
+        const list = document.querySelector("#setlistArea #list");
+
+        const setlistText = Array.from(
+            list.querySelectorAll(
+                ".song-line, .other-line, .medley-start, .medley-end, .encore-line"
+            )
+        )
+            .map(el => el.innerText.trim())
+            .filter(t => t !== "")
             .join("\n");
 
         const fullText = [
