@@ -14,6 +14,7 @@ export class Controller {
             state.artists = artists;
             state.currentArtist = localStorage.getItem("artistFile") || artists[0].file;
         });
+        AppState.sortMode = localStorage.getItem("sortMode") || "json";
 
         await this.loadSongs(AppState.currentArtist);
         renderAll();

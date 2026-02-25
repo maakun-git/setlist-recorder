@@ -11,6 +11,41 @@
 }
 
 /* ---------------- */
+/* 表示順切り替えボタン */
+/* ---------------- */
+
+.song-controls {
+  padding: 5px 12px;
+}
+
+.sort-buttons {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 5px;
+}
+
+.sort-btn {
+  flex: 1;
+  padding: 8px 8px;
+  border-radius: 24px;
+  border: 2px solid #1f3a45;
+  background: #142a33;
+  color: #aaa;
+  font-weight: 450;
+  font-size: 17px;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sort-btn.active {
+  background: #006688;
+  color: white;
+  border-color: #00bcd4;
+  font-weight: 600;
+}
+
+/* ---------------- */
 /* 曲リストタブ */
 /* ---------------- */
 

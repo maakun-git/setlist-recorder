@@ -5,6 +5,7 @@ export const AppState = {
   artists: [],
   currentArtist: null,
   songs: [],
+  sortMode: "json",
   setlist: JSON.parse(localStorage.getItem("setlist") || "[]"),
   hashtags: [],
 };

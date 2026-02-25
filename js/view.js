@@ -2,7 +2,6 @@ import { AppState } from "./state.js";
 
 let controllerRef = null;
 
-
 export function initView(controller) {
     controllerRef = controller;
 
@@ -32,7 +31,11 @@ export function initView(controller) {
 
     const buttonArea = document.getElementById("buttonArea");
 
+    document.getElementById("sortJson").onclick = () => setSortMode("json");
+    document.getElementById("sortKana").onclick = () => setSortMode("kana");
+
     songsTab.addEventListener("click", () => {
+        updateTabUI("songs");
         songsTab.classList.add("active");
         otherTab.classList.remove("active");
 
@@ -43,6 +46,7 @@ export function initView(controller) {
     });
 
     otherTab.addEventListener("click", () => {
+        updateTabUI("other");
         otherTab.classList.add("active");
         songsTab.classList.remove("active");
 
@@ -85,7 +89,7 @@ export function initView(controller) {
         const value = songFreeInput.value.trim();
         if (!value) return;
 
-        controller.handleSongClick(value); // ← ここがポイント
+        controller.handleSongClick(value);
 
         songFreeInput.value = "";
     });
@@ -95,7 +99,25 @@ export function initView(controller) {
             songFreeAddBtn.click();
         }
     });
+
+    // ソート状態読み込み
+    AppState.sortMode = localStorage.getItem("sortMode") || "json";
+
+    // UI反映
+    updateSortButtons();
+
+    // 曲タブを初期表示する場合
+    updateTabUI("songs");
+
     controller.initApp();
+}
+
+function updateSortButtons() {
+    const jsonBtn = document.getElementById("sortJson");
+    const kanaBtn = document.getElementById("sortKana");
+    console.log(AppState.sortMode);
+    jsonBtn.classList.toggle("active", AppState.sortMode === "json");
+    kanaBtn.classList.toggle("active", AppState.sortMode === "kana");
 }
 
 export function renderAll() {
@@ -130,14 +152,46 @@ function renderArtistSelect() {
     select.onchange = () => controllerRef.changeArtist(select.value);
 }
 
+function updateTabUI(activeTab) {
+    const controls = document.getElementById("songControls");
+
+    if (activeTab === "songs") {
+        controls.classList.remove("hidden");
+    } else {
+        controls.classList.add("hidden");
+    }
+}
+
+function sortSongs(list, mode) {
+    if (mode === "kana") {
+        return [...list].sort((a, b) =>
+            a.yomi.localeCompare(b.yomi, "ja")
+        );
+    }
+    return list; // json順
+}
+
+function setSortMode(mode) {
+    AppState.sortMode = mode;
+    localStorage.setItem("sortMode", mode);
+
+    document.getElementById("sortJson").classList.toggle("active", mode === "json");
+    document.getElementById("sortKana").classList.toggle("active", mode === "kana");
+
+    renderSongs();
+}
+
 function renderSongs() {
     const div = document.getElementById("songs");
     div.innerHTML = "";
 
-    AppState.songs.forEach(song => {
+    const sorted = sortSongs(AppState.songs, AppState.sortMode);
+
+    sorted.forEach(song => {
         const btn = document.createElement("button");
-        btn.textContent = song;
-        btn.onclick = () => controllerRef.handleSongClick(song);
+        btn.textContent = song.title;
+        btn.className = "song-btn";
+        btn.onclick = () => controllerRef.handleSongClick(song.title);
         div.appendChild(btn);
     });
 }
