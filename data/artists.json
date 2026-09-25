@@ -14,9 +14,19 @@
     "file": "data/songs/kimikyun.json",
     "defaultHashtags": ["#君キュンセトリ"]
   },
-    {
+  {
     "name": "W.ダブルヴィー",
     "file": "data/songs/doublevee.json",
     "defaultHashtags": ["#ダブルヴィーセトリ"]
+  },
+  {
+    "name": "サクヤコノハナ",
+    "file": "data/songs/sakuhana.json",
+    "defaultHashtags": ["#サクハナセトリ"]
+  },
+  {
+    "name": "Y∀KiN",
+    "file": "data/songs/yakin.json",
+    "defaultHashtags": ["#ヤキンセトリ"]
   }
 ]
